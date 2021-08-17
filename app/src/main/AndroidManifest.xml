@@ -8,6 +8,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:name=".GithubUserInfoApplication"
         android:theme="@style/Theme.GIthub_User_Info_task">
         <activity android:name=".ui.MainActivity">
             <intent-filter>

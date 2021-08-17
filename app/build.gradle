@@ -18,7 +18,14 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField("String", "GIT_BASE_URL", '"https://api.github.com/"')
+        }
+
         release {
+            buildConfigField("String", "GIT_BASE_URL", '"https://api.github.com/"')
+
+
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -39,6 +46,7 @@ android {
 ext {
     hilt_version = '2.35'
     retrofit2 = '2.9.0'
+    okhttp = '4.9.0'
     rxAndroid = '3.0.0'
     rxJava = '3.0.4'
     viewModel = '2.3.1'
@@ -56,6 +64,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
     implementation "com.squareup.retrofit2:retrofit:$retrofit2"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit2"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp"
     implementation "com.github.akarnokd:rxjava3-retrofit-adapter:$retrofitRxJava3Adapter"
     implementation "io.reactivex.rxjava3:rxandroid:$rxAndroid"
     implementation "io.reactivex.rxjava3:rxkotlin:$rxKotlin"
