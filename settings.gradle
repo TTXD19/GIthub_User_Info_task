@@ -1,0 +1,2 @@
+rootProject.name = "GIthub_User_Info_task"
+include ':app'
