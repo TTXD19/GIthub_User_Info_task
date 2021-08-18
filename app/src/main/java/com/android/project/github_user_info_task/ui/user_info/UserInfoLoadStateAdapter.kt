@@ -8,7 +8,9 @@ import androidx.paging.LoadStateAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.android.project.github_user_info_task.databinding.VhLoadingBinding
 
-class UserInfoLoadStateAdapter : LoadStateAdapter<UserInfoLoadStateAdapter.LoadStateViewHolder>() {
+class UserInfoLoadStateAdapter(
+    val retry: () -> Unit
+) : LoadStateAdapter<UserInfoLoadStateAdapter.LoadStateViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, loadState: LoadState): LoadStateViewHolder {
         return LoadStateViewHolder(
@@ -31,15 +33,21 @@ class UserInfoLoadStateAdapter : LoadStateAdapter<UserInfoLoadStateAdapter.LoadS
                 is LoadState.Loading -> {
                     binding.progressBar.visibility = View.VISIBLE
                     binding.tvLoadError.visibility = View.GONE
+                    binding.btnRetry.visibility = View.GONE
                 }
                 is LoadState.NotLoading -> {
                     binding.progressBar.visibility = View.GONE
                     binding.tvLoadError.visibility = View.GONE
+                    binding.btnRetry.visibility = View.GONE
                 }
                 is LoadState.Error -> {
                     binding.progressBar.visibility = View.GONE
                     binding.tvLoadError.visibility = View.VISIBLE
+                    binding.btnRetry.visibility = View.VISIBLE
                 }
+            }
+            binding.btnRetry.setOnClickListener {
+                retry.invoke()
             }
         }
     }

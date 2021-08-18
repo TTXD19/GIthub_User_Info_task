@@ -37,7 +37,9 @@ class UserInfoActivity : AppCompatActivity(){
 
     private fun initUserList(){
         binding.rvUserData.adapter = userInfoAdapter.withLoadStateFooter(
-            UserInfoLoadStateAdapter()
+            UserInfoLoadStateAdapter{
+                userInfoAdapter.retry()
+            }
         )
     }
 
@@ -62,20 +64,23 @@ class UserInfoActivity : AppCompatActivity(){
     private fun searchUser(name: String){
         userInfoViewModel.getUserDataList(name).subscribeBy {
             userInfoAdapter.submitData(lifecycle, it)
+            binding.rvUserData.scrollToPosition(0)
         }
 
         userInfoAdapter.addLoadStateListener { loadState ->
             when(loadState.source.refresh){
                 is LoadState.Error -> {
-                    binding.clError.visibility = View.VISIBLE
                     setLoadingVisibility(false)
+                    setErrorVisibility(true)
+                    setListVisibility(false)
                 }
                 is LoadState.Loading -> {
                     setLoadingVisibility(true)
-                    binding.clError.visibility = View.GONE
+                    setErrorVisibility(false)
                 }
                 is LoadState.NotLoading -> {
                     setLoadingVisibility(false)
+                    setListVisibility(true)
                 }
             }
         }
@@ -86,6 +91,22 @@ class UserInfoActivity : AppCompatActivity(){
             binding.progressBar.visibility = View.VISIBLE
         }else{
             binding.progressBar.visibility = View.GONE
+        }
+    }
+
+    private fun setListVisibility(show: Boolean){
+        if (show){
+            binding.rvUserData.visibility = View.VISIBLE
+        }else{
+            binding.rvUserData.visibility = View.GONE
+        }
+    }
+
+    private fun setErrorVisibility(show: Boolean){
+        if (show){
+            binding.clError.visibility = View.VISIBLE
+        }else{
+            binding.clError.visibility = View.GONE
         }
     }
 
