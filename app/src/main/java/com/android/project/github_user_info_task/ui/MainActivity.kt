@@ -1,24 +1,24 @@
 package com.android.project.github_user_info_task.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import com.android.project.github_user_info_task.R
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import com.android.project.github_user_info_task.databinding.ActivityMainBinding
+import com.android.project.github_user_info_task.ui.user_info.UserInfoActivity
 
 class MainActivity : AppCompatActivity() {
 
-    private val mainActivityViewModel: MainActivityViewModel by viewModel()
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
-        mainActivityViewModel.getUserData()
-        mainActivityViewModel.data.observe(this){
-            Log.d("testData", it.total_count?.toString() ?: "0")
+        binding = ActivityMainBinding.inflate(layoutInflater).apply {
+            setContentView(root)
         }
 
+        val intent = Intent(this, UserInfoActivity::class.java)
+        startActivity(intent)
 
     }
 }
