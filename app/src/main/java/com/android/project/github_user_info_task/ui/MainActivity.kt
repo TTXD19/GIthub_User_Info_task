@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity() {
 
         val intent = Intent(this, UserInfoActivity::class.java)
         startActivity(intent)
+        finish()
 
     }
 }

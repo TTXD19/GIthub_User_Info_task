@@ -22,10 +22,10 @@ class UserInfoViewModel(
     fun getUserDataList(name: String): Flowable<PagingData<UserDetail>> {
         return Pager(
             config = PagingConfig(
-                pageSize = 30,
+                pageSize = MAX_DATA_COUNT,
                 enablePlaceholders = false,
-                initialLoadSize = 30,
-                prefetchDistance = 2
+                initialLoadSize = MAX_DATA_COUNT,
+                prefetchDistance = PRE_FETCH_COUNT
             ),
             pagingSourceFactory = {
                 UserInfoPagingSource(
@@ -34,5 +34,10 @@ class UserInfoViewModel(
                 )
             }
         ).flowable.cachedIn(viewModelScope)
+    }
+
+    companion object{
+        const val MAX_DATA_COUNT = 30
+        const val PRE_FETCH_COUNT = 2
     }
 }

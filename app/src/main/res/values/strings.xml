@@ -2,4 +2,6 @@
     <string name="app_name">GIthub_User_Info_task</string>
 
     <string name="search">Search</string>
+    <string name="retry">Retry</string>
+    <string name="error_loading">Oops, looks like your network\n has some problem</string>
 </resources>
