@@ -22,7 +22,7 @@ val networkModule = module {
     single { provideNetworkManager(get()) }
 }
 
-val dataSourceModule = module {
+val apiServiceModule = module {
     single { provideUserInfoService(get()) }
 }
 

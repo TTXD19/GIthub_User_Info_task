@@ -1,8 +1,7 @@
 package com.android.project.github_user_info_task
 
 import android.app.Application
-import com.android.project.github_user_info_task.di.module.dataSourceModule
-import com.android.project.github_user_info_task.di.module.networkModule
+import com.android.project.github_user_info_task.di.module.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -11,7 +10,7 @@ class GithubUserInfoApplication: Application() {
         super.onCreate()
         startKoin {
             androidContext(this@GithubUserInfoApplication)
-            modules(listOf(networkModule, dataSourceModule))
+            modules(listOf(networkModule, apiServiceModule, dataSourceModule, repositoryModule, viewModelModule))
         }
     }
 }
