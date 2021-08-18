@@ -19,7 +19,7 @@ class UserInfoViewModel(
 
     val data = MutableLiveData<UserInfoResp>()
 
-    fun getUserDataList(): Flowable<PagingData<UserDetail>> {
+    fun getUserDataList(name: String): Flowable<PagingData<UserDetail>> {
         return Pager(
             config = PagingConfig(
                 pageSize = 30,
@@ -30,15 +30,9 @@ class UserInfoViewModel(
             pagingSourceFactory = {
                 UserInfoPagingSource(
                     repository = getUserInfoRepository,
-                    userName = "Tom"
+                    userName = name
                 )
             }
         ).flowable.cachedIn(viewModelScope)
     }
-
-//    fun getUserDataList(){
-//        getUserInfoRepository.getUserInfoData("Tom", 1).subscribeBy {
-//            data.postValue(it)
-//        }
-//    }
 }
