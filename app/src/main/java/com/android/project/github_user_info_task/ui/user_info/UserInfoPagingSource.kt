@@ -4,10 +4,8 @@ import androidx.paging.PagingState
 import androidx.paging.rxjava3.RxPagingSource
 import com.android.project.github_user_info_task.data.data_class.user_info.UserDetail
 import com.android.project.github_user_info_task.data.data_class.user_info.UserInfoResp
-import com.android.project.github_user_info_task.data.repository.DataResult
 import com.android.project.github_user_info_task.data.repository.user_info.IGetUserInfoRepository
 import io.reactivex.rxjava3.core.Single
-import java.lang.Exception
 
 class UserInfoPagingSource(
     private val userName: String,
@@ -27,6 +25,7 @@ class UserInfoPagingSource(
 
     private fun toLoadResult(page: Int, userInfoResp: UserInfoResp): LoadResult<Int, UserDetail> {
 
+        // Prevent next page first item duplicate with previous page last item
         if (page != 1) {
             userInfoResp.items?.toMutableList()?.removeFirst()
         }
