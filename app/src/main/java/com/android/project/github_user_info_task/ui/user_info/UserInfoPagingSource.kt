@@ -27,7 +27,9 @@ class UserInfoPagingSource(
 
         // Prevent next page first item duplicate with previous page last item
         if (page != 1) {
-            userInfoResp.items?.toMutableList()?.removeFirst()
+            userInfoResp.items?.toMutableList()?.removeFirstOrNull()
+        } else {
+            userInfoResp.items?.toMutableList()?.removeLastOrNull()
         }
 
         return LoadResult.Page(
